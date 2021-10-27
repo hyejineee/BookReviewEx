@@ -1,6 +1,6 @@
-package com.example.bookreviewex.service
+package com.example.bookreviewex.repository.service
 
-import com.example.bookreviewex.model.SearchResponseDTO
+import com.example.bookreviewex.repository.model.SearchResponseDTO
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
