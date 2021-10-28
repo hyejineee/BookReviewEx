@@ -31,6 +31,10 @@ android {
         jvmTarget = '1.8'
     }
 
+    testOptions{
+        unitTests.returnDefaultValues = true
+    }
+
     buildFeatures{
         viewBinding true
     }
@@ -70,10 +74,12 @@ dependencies {
     def ktx_version = "2.3.1"
     //viewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$ktx_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$ktx_version"
 
     testImplementation 'com.willowtreeapps.assertk:assertk-jvm:0.24'
 
-
+    testImplementation 'androidx.test:core:1.4.0'
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
 
 
 }

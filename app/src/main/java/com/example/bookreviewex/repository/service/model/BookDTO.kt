@@ -1,4 +1,4 @@
-package com.example.bookreviewex.repository.model
+package com.example.bookreviewex.repository.service.model
 
 import com.google.gson.annotations.SerializedName
 

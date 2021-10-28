@@ -7,7 +7,7 @@
     android:paddingTop="16dp"
     android:paddingStart="16dp"
     android:paddingEnd="16dp"
-    tools:context=".MainActivity">
+    tools:context=".presentation.MainActivity">
 
     <com.example.bookreviewex.SearchEditText
         android:id="@+id/searchEditTextView"

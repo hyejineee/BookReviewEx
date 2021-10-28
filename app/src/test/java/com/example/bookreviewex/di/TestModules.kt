@@ -4,7 +4,7 @@ import com.example.bookreviewex.repository.ReviewRepository
 import com.example.bookreviewex.repository.TestReviewRepository
 import com.example.bookreviewex.usecase.GetReviewListUseCase
 import com.example.bookreviewex.usecase.InsertReviewListUseCase
-import com.example.bookreviewex.viewmodel.ReviewListViewModel
+import com.example.bookreviewex.presentation.viewmodel.ReviewListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

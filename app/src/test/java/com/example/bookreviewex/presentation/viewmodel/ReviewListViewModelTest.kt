@@ -1,23 +1,21 @@
-package com.example.bookreviewex.viewmodel
+package com.example.bookreviewex.presentation.viewmodel
 
-import assertk.assertThat
-import assertk.assertions.isEqualTo
-import com.example.bookreviewex.repository.model.BookDTO
-import com.example.bookreviewex.repository.model.ReviewEntity
-import com.example.bookreviewex.usecase.GetBooksFromAPIUseCase
-import com.example.bookreviewex.usecase.GetReviewListUseCase
+import com.example.bookreviewex.repository.service.model.BookDTO
+import com.example.bookreviewex.repository.localdb.entity.ReviewEntity
 import com.example.bookreviewex.usecase.InsertReviewListUseCase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.koin.test.inject
 
+@ExperimentalCoroutinesApi
 internal class ReviewListViewModelTest:ViewModelTest() {
+
+
     private val viewModel:ReviewListViewModel by inject()
 
     private val insertReviewListUseCase : InsertReviewListUseCase by inject()
-    private val getReviewListUseCase: GetReviewListUseCase by inject()
-    private val getBooksFromAPIUseCase: GetBooksFromAPIUseCase by inject()
 
     private val mockReviewedBooks = listOf(
         ReviewEntity(
@@ -34,10 +32,6 @@ internal class ReviewListViewModelTest:ViewModelTest() {
         )
     )
 
-    /**
-     *  1. 디비에서 리뷰가 달린 도서리스트 가져오기
-     *  2. api서버에서 검색한 도서 리스트 가져오기
-     * */
 
     @Before
     fun initData(){
@@ -49,8 +43,17 @@ internal class ReviewListViewModelTest:ViewModelTest() {
     @Test
     fun `get reviews from db `(){
         runBlockingTest {
+            val testObserver = viewModel.reviewList.test()
+
             viewModel.fetchAllReview()
-            assertThat(viewModel.reviewList).isEqualTo(mockReviewedBooks)
+
+            testObserver.assertValueSequence(
+                listOf(
+                    ReviewListState.Idle,
+                    ReviewListState.Loading,
+                    ReviewListState.Success(mockReviewedBooks)
+                )
+            )
         }
     }
 

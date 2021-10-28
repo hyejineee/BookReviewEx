@@ -1,6 +1,6 @@
 package com.example.bookreviewex.repository
 
-import com.example.bookreviewex.repository.model.ReviewEntity
+import com.example.bookreviewex.repository.localdb.entity.ReviewEntity
 
 class TestReviewRepository:ReviewRepository {
 
