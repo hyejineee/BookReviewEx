@@ -6,11 +6,11 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface SearchApiService {
-    @GET("")
-    fun searchByKeyword(
+    @GET("book.json")
+     suspend fun searchByKeyword(
         @Query("query")keyword:String,
         @Query("display") count:Int = 10,
         @Query("start")start:Int =1
-    ): Call<SearchResponseDTO>
+    ): SearchResponseDTO
 
 }

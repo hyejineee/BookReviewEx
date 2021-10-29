@@ -12,7 +12,7 @@ class TestReviewRepository:ReviewRepository {
 
     override suspend fun insertReview(reviewEntity: ReviewEntity): Long {
         this.reviewList.add(reviewEntity)
-        return reviewEntity.id.toLong()
+        return reviewEntity.id?.toLong()?:-1
     }
 
     override suspend fun insertReviewList(reviewEntities: List<ReviewEntity>) {
