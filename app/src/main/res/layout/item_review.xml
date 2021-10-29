@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/bookCoverImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/titleTextView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="5dp"
+        />
+
+    <TextView
+        android:id="@+id/reviewDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/titleTextView"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintTop_toTopOf="@id/bookCoverImageView"
+        app:layout_constraintBottom_toTopOf="@+id/titleTextView"
+        android:layout_marginBottom="5dp"
+        tools:text="2222.22.22" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="0dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="asdklfajdlkfjasldkfjlaksdjflka"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/bookCoverImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reviewDateTextView"
+        app:layout_constraintBottom_toTopOf="@+id/contentTextView"
+        android:layout_marginBottom="5dp"
+         />
+
+    <TextView
+        android:id="@+id/contentTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:lines="2"
+        android:ellipsize="end"
+        tools:text="dsfjpaweojqfjlkdslkfajsdlkfjals;dkfja;dsfjpaweojqfjlkdslkfajsd"
+        app:layout_constraintStart_toStartOf="@+id/titleTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        app:layout_constraintBottom_toBottomOf="@id/bookCoverImageView"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
