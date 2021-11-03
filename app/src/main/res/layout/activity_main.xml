@@ -12,16 +12,29 @@
     <com.example.bookreviewex.SearchEditText
         android:id="@+id/searchEditTextView"
         android:layout_width="0dp"
-
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/bookList"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/bookList"
+        android:id="@+id/bookListView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchEditTextView">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/reviewListView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
@@ -31,6 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/searchEditTextView">
 
     </androidx.recyclerview.widget.RecyclerView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
