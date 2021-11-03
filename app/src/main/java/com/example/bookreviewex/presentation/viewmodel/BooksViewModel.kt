@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.bookreviewex.presentation.state.BookListState
 import com.example.bookreviewex.usecase.GetBooksFromAPIUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

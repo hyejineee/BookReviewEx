@@ -1,7 +1,6 @@
 package com.example.bookreviewex.presentation.viewmodel
 
-import assertk.assertThat
-import assertk.assertions.isEqualTo
+import com.example.bookreviewex.presentation.state.BookListState
 import com.example.bookreviewex.repository.BookRepository
 import com.example.bookreviewex.repository.TestRemoteBooksRepository
 import com.example.bookreviewex.repository.service.model.BookDTO

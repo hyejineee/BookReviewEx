@@ -8,21 +8,21 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bookreviewex.databinding.ActivityMainBinding
-import com.example.bookreviewex.presentation.viewmodel.BookListState
+import com.example.bookreviewex.presentation.state.BookListState
 import com.example.bookreviewex.presentation.viewmodel.BooksViewModel
-import com.example.bookreviewex.presentation.viewmodel.ReviewListState
+import com.example.bookreviewex.presentation.state.ReviewListState
 import com.example.bookreviewex.presentation.viewmodel.ReviewListViewModel
 import com.example.bookreviewex.repository.service.model.BookDTO
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding:ActivityMainBinding
-    private val reviewListViewModel:ReviewListViewModel by inject()
-    private val bookListViewModel : BooksViewModel by inject()
+    lateinit var binding: ActivityMainBinding
+    private val reviewListViewModel: ReviewListViewModel by inject()
+    private val bookListViewModel: BooksViewModel by inject()
 
     private val reviewAdapter = ReviewAdapter()
-    private val bookAdapter = BooksAdapter()
+    private val bookAdapter by lazy { BooksAdapter(handleBookListItemClick) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         observeData()
     }
 
-    private fun initViews(){
+    private fun initViews() {
 
         binding.bookListView.layoutManager = LinearLayoutManager(this)
         binding.bookListView.adapter = bookAdapter
@@ -50,15 +50,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun handleSearchTextViewTextChange(){
+    private fun handleSearchTextViewTextChange() {
         binding.searchEditTextView.doAfterTextChanged {
-            if(it?.length?:0 <=0) changeVisibleListView(false)
+            if (it?.length ?: 0 <= 0) changeVisibleListView(false)
         }
-
     }
 
-    private fun changeVisibleListView( bookListViewVisible :Boolean){
-        if(bookListViewVisible.not()){
+    private fun changeVisibleListView(bookListViewVisible: Boolean) {
+        if (bookListViewVisible.not()) {
             bookAdapter.submitList(null)
             bookAdapter.notifyDataSetChanged()
         }
@@ -67,17 +66,17 @@ class MainActivity : AppCompatActivity() {
         binding.reviewListView.isVisible = !bookListViewVisible
     }
 
-    private fun handleSearchTextViewClick(){
+    private fun handleSearchTextViewClick() {
         binding.searchEditTextView.setOnClickListener {
             changeVisibleListView(true)
         }
     }
 
-    private fun observeData(){
-        reviewListViewModel.reviewList.observe(this){
+    private fun observeData() {
+        reviewListViewModel.reviewList.observe(this) {
             Log.d(TAG, "state : ${it}")
 
-            when(it){
+            when (it) {
                 is ReviewListState.Error -> handleErrorState()
                 is ReviewListState.Idle -> changeVisibleListView(false)
                 is ReviewListState.Loading -> handleLoadingState()
@@ -85,9 +84,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        bookListViewModel.book.observe(this){
+        bookListViewModel.book.observe(this) {
             Log.d(TAG, "state : ${it}")
-            when(it){
+            when (it) {
                 BookListState.Idle -> changeVisibleListView(true)
                 BookListState.Loading -> handleLoadingState()
                 is BookListState.Success -> handleBookListSuccessState(it)
@@ -97,29 +96,38 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun handleErrorState(){
+    private fun handleErrorState() {
 
     }
 
-    private fun handleLoadingState(){
+    private fun handleLoadingState() {
 
     }
 
-    private fun handleReviewListSuccessState(state: ReviewListState.Success){
+    private fun handleReviewListSuccessState(state: ReviewListState.Success) {
         reviewAdapter.submitList(state.reviewList.toMutableList())
     }
 
-    private fun handleBookListSuccessState(state:BookListState.Success){
+    private fun handleBookListSuccessState(state: BookListState.Success) {
+
         changeVisibleListView(true)
         bookAdapter.submitList(state.books.toMutableList())
     }
 
-    private val handleSearchButtonClick:()->Unit = {
+    private val handleBookListItemClick:(BookDTO)->Unit = {
+        val i = Intent(this, BookDetailActivity::class.java).apply {
+            putExtra("data", it)
+        }
+
+        startActivity(i)
+    }
+
+    private val handleSearchButtonClick: () -> Unit = {
         val keyword = binding.searchEditTextView.text.toString()
         bookListViewModel.searchBook(keyword)
     }
 
-    companion object{
+    companion object {
         private const val TAG = "ReviewListActivity"
     }
 }

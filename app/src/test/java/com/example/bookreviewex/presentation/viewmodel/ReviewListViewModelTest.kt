@@ -1,5 +1,6 @@
 package com.example.bookreviewex.presentation.viewmodel
 
+import com.example.bookreviewex.presentation.state.ReviewListState
 import com.example.bookreviewex.repository.service.model.BookDTO
 import com.example.bookreviewex.repository.localdb.entity.ReviewEntity
 import com.example.bookreviewex.usecase.InsertReviewListUseCase

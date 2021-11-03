@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.43020833333333336" />
+        <entry key="app/src/main/res/drawable/gray_line_round_corner_backgroud.xml" value="0.2015625" />
+        <entry key="app/src/main/res/layout/activity_book_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_review_list.xml" value="0.2318840579710145" />
         <entry key="app/src/main/res/layout/item_review.xml" value="0.33" />
