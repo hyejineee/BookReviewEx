@@ -20,4 +20,8 @@ class ReviewLocalRepository(
     override suspend fun insertReviewList(reviewEntities: List<ReviewEntity>) = withContext(ioDispatcher){
         reviewDAO.insertAllReview(reviewEntities)
     }
+
+    override suspend fun getReviewByBookIsbn(isbn: String): ReviewEntity? {
+        return reviewDAO.getReviewByBookIsbn(isbn)
+    }
 }

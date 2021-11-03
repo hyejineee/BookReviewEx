@@ -5,16 +5,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.bookreviewex.databinding.ItemReviewBinding
 import com.example.bookreviewex.repository.localdb.entity.ReviewEntity
 
 class ReviewAdapter(
+    private val itemClickListener:(ReviewEntity)->Unit
 ) : ListAdapter<ReviewEntity, ReviewAdapter.ViewHolder>(DiffCallback) {
 
     inner class ViewHolder(private val binding: ItemReviewBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(reviewItem:ReviewEntity) {
             binding.contentTextView.text = reviewItem.content
             binding.titleTextView.text = reviewItem.book.title
+            Glide.with(binding.root)
+                .load(reviewItem.book.image)
+                .centerCrop()
+                .into(binding.bookCoverImageView)
+
+            binding.root.setOnClickListener {
+                itemClickListener(reviewItem)
+            }
         }
     }
 

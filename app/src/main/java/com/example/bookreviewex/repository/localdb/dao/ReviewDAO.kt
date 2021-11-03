@@ -15,4 +15,7 @@ interface ReviewDAO {
 
     @Insert
     suspend fun insertAllReview(reviews : List<ReviewEntity>)
+
+    @Query("select * from ReviewEntity where book_isbn = :isbn")
+    suspend fun getReviewByBookIsbn(isbn: String): ReviewEntity?
 }

@@ -4,17 +4,16 @@ import android.content.Context
 import android.util.Log
 import androidx.room.Room
 import com.example.bookreviewex.R
+import com.example.bookreviewex.presentation.viewmodel.BookDetailViewModel
 import com.example.bookreviewex.presentation.viewmodel.BooksViewModel
 import com.example.bookreviewex.repository.ReviewLocalRepository
 import com.example.bookreviewex.repository.ReviewRepository
 import com.example.bookreviewex.repository.localdb.ReviewBookAppDatabase
-import com.example.bookreviewex.usecase.GetReviewListUseCase
-import com.example.bookreviewex.usecase.InsertReviewListUseCase
 import com.example.bookreviewex.presentation.viewmodel.ReviewListViewModel
 import com.example.bookreviewex.repository.BookRepository
 import com.example.bookreviewex.repository.RemoteBookRepository
 import com.example.bookreviewex.repository.service.SearchApiService
-import com.example.bookreviewex.usecase.GetBooksFromAPIUseCase
+import com.example.bookreviewex.usecase.*
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
@@ -30,11 +29,14 @@ val appModules = module {
     //viewModel
     viewModel { ReviewListViewModel(get()) }
     viewModel{ BooksViewModel(get())}
+    viewModel{BookDetailViewModel(get(), get())}
 
     //useCase
     factory { GetReviewListUseCase(get()) }
     factory { InsertReviewListUseCase(get()) }
     factory { GetBooksFromAPIUseCase(get()) }
+    factory { InsertReviewUseCase(get()) }
+    factory { GetReviewUseCase(get()) }
 
     //repository
     single<ReviewRepository> { ReviewLocalRepository(get(), Dispatchers.IO) }

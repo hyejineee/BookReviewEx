@@ -12,6 +12,7 @@ import com.example.bookreviewex.presentation.state.BookListState
 import com.example.bookreviewex.presentation.viewmodel.BooksViewModel
 import com.example.bookreviewex.presentation.state.ReviewListState
 import com.example.bookreviewex.presentation.viewmodel.ReviewListViewModel
+import com.example.bookreviewex.repository.localdb.entity.ReviewEntity
 import com.example.bookreviewex.repository.service.model.BookDTO
 import org.koin.android.ext.android.inject
 
@@ -21,7 +22,9 @@ class MainActivity : AppCompatActivity() {
     private val reviewListViewModel: ReviewListViewModel by inject()
     private val bookListViewModel: BooksViewModel by inject()
 
-    private val reviewAdapter = ReviewAdapter()
+    private val reviewAdapter by lazy {
+        ReviewAdapter(handleReviewListItemClick)
+    }
     private val bookAdapter by lazy { BooksAdapter(handleBookListItemClick) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +34,11 @@ class MainActivity : AppCompatActivity() {
 
         initViews()
         observeData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        reviewListViewModel.fetchAllReview()
     }
 
     private fun initViews() {
@@ -117,6 +125,17 @@ class MainActivity : AppCompatActivity() {
     private val handleBookListItemClick:(BookDTO)->Unit = {
         val i = Intent(this, BookDetailActivity::class.java).apply {
             putExtra("data", it)
+        }
+
+        startActivity(i)
+
+        binding.searchEditTextView.setText("")
+    }
+
+    private val handleReviewListItemClick:(ReviewEntity)->Unit = {
+        val i = Intent(this, BookDetailActivity::class.java).apply {
+            putExtra("data", it.book)
+            putExtra("review", it)
         }
 
         startActivity(i)

@@ -18,6 +18,11 @@ class LivedataTestObserver<T> : Observer<T> {
         var actualNext: Boolean
         var expectedNext: Boolean
 
+        System.out.println(
+            "actual : $values\n" +
+                    "expected : $expected"
+        )
+
         while (true) {
             actualNext = actualIterator.hasNext()
             expectedNext = expectIterator.hasNext()
