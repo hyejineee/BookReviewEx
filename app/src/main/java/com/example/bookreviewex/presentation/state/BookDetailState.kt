@@ -8,5 +8,6 @@ sealed class BookDetailState {
     object Loading:BookDetailState()
     data class GetSuccess(val review:ReviewEntity):BookDetailState()
     object InsertSuccess:BookDetailState()
+    data class UpdateSuccess(val updatedReviewEntity: ReviewEntity):BookDetailState()
 
 }

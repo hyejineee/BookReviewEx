@@ -54,7 +54,7 @@ class BookDetailActivity:AppCompatActivity() {
             val date = SimpleDateFormat("yyyy.MM.dd").format(System.currentTimeMillis())
 
             val review = ReviewEntity(
-                id = null,
+                id = reviewEntity?.id,
                 book = data,
                 content = binding.reviewEditTextView.text.toString(),
                 reviewDate = date
@@ -62,6 +62,7 @@ class BookDetailActivity:AppCompatActivity() {
 
             if(reviewEditMode){
                 bookDetailViewModel.updateReview(review)
+                Log.d(TAG, "리뷰 업데이트 버튼 클릭")
                 return@setOnClickListener
             }
 
@@ -81,6 +82,7 @@ class BookDetailActivity:AppCompatActivity() {
                 BookDetailState.Idle -> handleIdle()
                 is BookDetailState.InsertSuccess -> handleInsertSuccess(it)
                 BookDetailState.Loading -> handleLoading()
+                is BookDetailState.UpdateSuccess -> handleUpdatedSuccess(it)
             }
         }
     }
@@ -93,11 +95,17 @@ class BookDetailActivity:AppCompatActivity() {
         Snackbar.make(binding.root,"리뷰 등록 성공", Snackbar.LENGTH_SHORT ).show()
     }
 
+    private fun handleUpdatedSuccess(state: BookDetailState.UpdateSuccess){
+        Snackbar.make(binding.root,"리뷰 업데이트 성공", Snackbar.LENGTH_SHORT ).show()
+
+    }
+
     private fun handleLoading(){
 
     }
 
     private fun handleError(){
+        Snackbar.make(binding.root,"에러발생", Snackbar.LENGTH_SHORT ).show()
 
     }
 

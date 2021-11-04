@@ -24,4 +24,14 @@ class ReviewLocalRepository(
     override suspend fun getReviewByBookIsbn(isbn: String): ReviewEntity? {
         return reviewDAO.getReviewByBookIsbn(isbn)
     }
+
+    override suspend fun updateReview(updatedReview: ReviewEntity): ReviewEntity? {
+        val result = reviewDAO.updateReview(updatedReview)
+
+        if(result == updatedReview.id){
+            return updatedReview
+        }
+
+        return null
+    }
 }

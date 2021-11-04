@@ -7,4 +7,5 @@ interface ReviewRepository {
     suspend fun insertReview(reviewEntity: ReviewEntity):Long
     suspend fun insertReviewList(reviewEntities: List<ReviewEntity>)
     suspend fun getReviewByBookIsbn(isbn:String):ReviewEntity?
+    suspend fun updateReview(updatedReview:ReviewEntity): ReviewEntity?
 }

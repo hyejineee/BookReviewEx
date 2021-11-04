@@ -1,10 +1,12 @@
 package com.example.bookreviewex.presentation.viewmodel
 
 import com.example.bookreviewex.presentation.state.BookDetailState
+import com.example.bookreviewex.repository.ReviewRepository
 import com.example.bookreviewex.repository.localdb.entity.ReviewEntity
 import com.example.bookreviewex.repository.service.model.BookDTO
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
+import org.junit.Before
 import org.junit.Test
 import org.koin.test.inject
 import java.text.SimpleDateFormat
@@ -12,6 +14,7 @@ import java.text.SimpleDateFormat
 @ExperimentalCoroutinesApi
 internal class BookDetailViewModelTest:ViewModelTest() {
     private val bookDetailViewModel:BookDetailViewModel by inject()
+    private val reviewRepository:ReviewRepository by inject()
 
     // 책의 리뷰 데이터 저장하기
 
@@ -31,6 +34,13 @@ internal class BookDetailViewModelTest:ViewModelTest() {
         reviewDate = date,
         content = "this is test review"
     )
+
+    @Before
+    fun init(){
+        runBlocking {
+            reviewRepository.insertReview(mockReview)
+        }
+    }
 
     @Test
     fun `책의 리뷰 데이터 저장하기`(){
@@ -68,7 +78,24 @@ internal class BookDetailViewModelTest:ViewModelTest() {
                 )
             )
         }
+    }
 
+    @Test
+    fun `리뷰 업데이트 하기`(){
+        runBlocking {
+            val testObserver = bookDetailViewModel.review.test()
+
+            val updatedMockReview = mockReview.copy(content = "update review")
+            bookDetailViewModel.updateReview(updatedMockReview)
+
+            testObserver.assertValueSequence(
+                listOf(
+                    BookDetailState.Idle,
+                    BookDetailState.Loading,
+                    BookDetailState.UpdateSuccess(updatedMockReview)
+                )
+            )
+        }
     }
 
 

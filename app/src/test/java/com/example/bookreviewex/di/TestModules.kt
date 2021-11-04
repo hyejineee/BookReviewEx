@@ -16,7 +16,7 @@ val testModules = module {
     //viewmodel
     viewModel { ReviewListViewModel(get()) }
     viewModel{BooksViewModel(get())}
-    viewModel { BookDetailViewModel(get(), get()) }
+    viewModel { BookDetailViewModel(get(), get(), get()) }
 
     //repository
     single<ReviewRepository> { TestReviewRepository() }
@@ -28,5 +28,6 @@ val testModules = module {
     factory { GetBooksFromAPIUseCase(get()) }
     factory { InsertReviewUseCase(get()) }
     factory { GetReviewUseCase(get())}
+    factory { UpdateReviewUseCase(get()) }
 
 }

@@ -22,4 +22,8 @@ class TestReviewRepository:ReviewRepository {
     override suspend fun getReviewByBookIsbn(isbn: String): ReviewEntity? {
         return reviewList.find { it.book.isbn == isbn }
     }
+
+    override suspend fun updateReview(updatedReview: ReviewEntity): ReviewEntity? {
+        return reviewList.find { it.id == updatedReview.id }?.copy(content = updatedReview.content)
+    }
 }

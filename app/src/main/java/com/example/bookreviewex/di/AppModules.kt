@@ -29,7 +29,7 @@ val appModules = module {
     //viewModel
     viewModel { ReviewListViewModel(get()) }
     viewModel{ BooksViewModel(get())}
-    viewModel{BookDetailViewModel(get(), get())}
+    viewModel{BookDetailViewModel(get(), get(), get())}
 
     //useCase
     factory { GetReviewListUseCase(get()) }
@@ -37,6 +37,7 @@ val appModules = module {
     factory { GetBooksFromAPIUseCase(get()) }
     factory { InsertReviewUseCase(get()) }
     factory { GetReviewUseCase(get()) }
+    factory { UpdateReviewUseCase(get()) }
 
     //repository
     single<ReviewRepository> { ReviewLocalRepository(get(), Dispatchers.IO) }
