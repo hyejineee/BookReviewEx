@@ -1,5 +1,6 @@
 package com.example.bookreviewex.repository
 
+import android.util.Log
 import com.example.bookreviewex.repository.localdb.dao.ReviewDAO
 import com.example.bookreviewex.repository.localdb.entity.ReviewEntity
 import kotlinx.coroutines.CoroutineDispatcher
@@ -28,7 +29,7 @@ class ReviewLocalRepository(
     override suspend fun updateReview(updatedReview: ReviewEntity): ReviewEntity? {
         val result = reviewDAO.updateReview(updatedReview)
 
-        if(result == updatedReview.id){
+        if(result == 1){
             return updatedReview
         }
 

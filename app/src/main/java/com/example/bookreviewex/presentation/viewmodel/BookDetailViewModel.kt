@@ -1,5 +1,6 @@
 package com.example.bookreviewex.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import com.example.bookreviewex.usecase.GetReviewUseCase
 import com.example.bookreviewex.usecase.InsertReviewUseCase
 import com.example.bookreviewex.usecase.UpdateReviewUseCase
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -46,7 +48,6 @@ class BookDetailViewModel(
         }
 
         data ?: kotlin.run {
-            _review.value = BookDetailState.Error
             return@launch
         }
 
